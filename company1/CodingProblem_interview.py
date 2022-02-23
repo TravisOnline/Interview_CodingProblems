@@ -16,24 +16,22 @@ def calc_price(old_price: float):
 
 with open(file) as f:
     dictReader = csv.DictReader(f)
-    header = next(dictReader)
-    if header is not None:
-        processedStoreNo = ""
-        for row in dictReader:
-            storeNo = row['Store']
-            rowToWrite = []
-            if processedStoreNo is not storeNo and processedStoreNo != "":
-                newFile.close()
-            thisSku = row['Sku']
-            newPrice = calc_price(float(row['Price']))
-            rowToWrite.append(thisSku)
-            rowToWrite.append(newPrice)
+    processedStoreNo = ""
+    for row in dictReader:
+        storeNo = row['Store']
+        rowToWrite = []
+        if processedStoreNo is not storeNo and processedStoreNo != "":
+            newFile.close()
+        thisSku = row['Sku']
+        newPrice = calc_price(float(row['Price']))
+        rowToWrite.append(thisSku)
+        rowToWrite.append(newPrice)
 
-            with open(storeNo + ".csv", 'a', newline='') as newFile:
-                writer = csv.writer(newFile)
-                writer.writerow(rowToWrite)
+        with open(storeNo + ".csv", 'a', newline='') as newFile:
+            writer = csv.writer(newFile)
+            writer.writerow(rowToWrite)
 
-            rowToWrite.clear()
-            processedStoreNo = storeNo
-        newFile.close()
+        rowToWrite.clear()
+        processedStoreNo = storeNo
+    newFile.close()
 f.close()
