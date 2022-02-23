@@ -18,20 +18,17 @@ with open(file) as f:
     dictReader = csv.DictReader(f)
     processedStoreNo = ""
     for row in dictReader:
-        storeNo = row['Store']
         rowToWrite = []
-        if processedStoreNo is not storeNo and processedStoreNo != "":
+        if processedStoreNo is not row['Store'] and processedStoreNo != "":
             newFile.close()
-        thisSku = row['Sku']
-        newPrice = calc_price(float(row['Price']))
-        rowToWrite.append(thisSku)
-        rowToWrite.append(newPrice)
+        rowToWrite.append(row['Sku'])
+        rowToWrite.append(calc_price(float(row['Price'])))
 
-        with open(storeNo + ".csv", 'a', newline='') as newFile:
+        with open(row['Store'] + ".csv", 'a', newline='') as newFile:
             writer = csv.writer(newFile)
             writer.writerow(rowToWrite)
 
         rowToWrite.clear()
-        processedStoreNo = storeNo
+        processedStoreNo = row['Store']
     newFile.close()
 f.close()
