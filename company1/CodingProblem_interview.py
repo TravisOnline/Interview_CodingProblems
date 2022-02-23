@@ -1,5 +1,5 @@
 #Task: from a supplied CSV, create a new file for individual store numbers
-#In the each stor efile, list comma delimited SKUs and price with a 5% discount
+#In the each store file, list comma delimited SKUs and price with a 5% discount
 
 import csv
 
